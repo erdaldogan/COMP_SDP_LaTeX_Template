@@ -22,6 +22,17 @@
 
 \pagenumbering{arabic}
 
+\newcommand{\settitle}[1]{\def\@projecttitle{#1}}
+\newcommand{\setauthor}[1]{\def\@projectauthors{#1}}
+\newcommand{\setyear}[1]{\def\@projectyear{#1}}
+\newcommand{\setcourseno}[1]{\def\@courseno{#1}}
+\newcommand{\setchair}[1]{\def\@departmentchair{#1}}
+\newcommand{\setadvisor}[2]{\def\@advisor{#1}}
+\newcommand{\setmemberone}[1]{\def\TAMUCCmemberone{#1}}
+\newcommand{\setmembertwo}[1]{\def\TAMUCCmembertwo{#1}}
+\newcommand{\setpriordegree}[1]{\def\BSearned{#1}}
+\newcommand{\setprogramname}[1]{\def\@programname{#1}}
+
 % set numbering of sections
 \renewcommand\thesection{\arabic{section}.}
 \renewcommand\thesubsection{\thesection\arabic{subsection}.}
@@ -39,6 +50,11 @@
 \addtocounter{secnumdepth}{1}
 \addtocounter{tocdepth}{1}
 
+\newcommand{\createlists}{
+	\tableofcontents
+	\listoftables
+	\listoffigures
+}
 
 % words not be capitalized in title case
 \Addlcwords{a, an, by, to, the, of, and, but, for, in, on, is}
@@ -49,7 +65,12 @@
 % section style without break
 \newcommand{\@secstylenobr}{\centering\large\bfseries\scshape}
 
-
+\renewcommand\and{
+	\end{tabular}
+	\hskip 1em
+	\@plus.17fil
+	\begin{tabular}[t]{c}
+}
 
 \renewcommand\section[1][]{
 	\ifthenelse{\equal{#1}{nobreak}}
@@ -78,26 +99,28 @@
 
 \newcommand{\createtitle}{%
 	\centering
-	
-	
 }
 
-\newcommand{\MEFtitlepage}{
+\newcommand{\coverpage}{
 	\clearpage
-	\thispagestyle{empty}
-	\begin{centering}
+	\thispagestyle{empty}{
+	\centering
+	\bfseries
 		\includegraphics[width=0.3\textwidth]{../figures/mef_logo.png}\\
-		A Thesis\\
-		by \\
+		\vspace{8em}
+		\MakeUppercase{\Large \@projecttitle} \\
+		\vspace{6em}
+		Senior Design Project \@courseno \\
+		\vspace{10em}
+		{
+			\begin{tabular}[t]{c}
+				\@projectauthors
+			\end{tabular}
+		} \\
 		\vfill
-		Submitted in Partial Fulfillment of the Requirements for the Degree of\\
-		\vfill
-		MASTER OF SCIENCE\\
-		in\\
-		\vfill
-		Texas A\&M University-Corpus Christi\\
-		\vskip -0.15in
-		Corpus Christi, Texas\\ 
-		\vskip .1in	
-	\end{centering}
+		\begin{center}
+			\@projectyear
+		\end{center}
+	}
 }
+
