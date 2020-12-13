@@ -26,12 +26,14 @@
 \newcommand{\setauthor}[1]{\def\@projectauthors{#1}}
 \newcommand{\setyear}[1]{\def\@projectyear{#1}}
 \newcommand{\setcourseno}[1]{\def\@courseno{#1}}
+\newcommand{\setfaculty}[1]{\def\@faculty{#1}}
+\newcommand{\setdepartment}[1]{\def\@department{#1}}
 \newcommand{\setchair}[1]{\def\@departmentchair{#1}}
 \newcommand{\setadvisor}[2]{\def\@advisor{#1}}
 \newcommand{\setmemberone}[1]{\def\TAMUCCmemberone{#1}}
 \newcommand{\setmembertwo}[1]{\def\TAMUCCmembertwo{#1}}
 \newcommand{\setpriordegree}[1]{\def\BSearned{#1}}
-\newcommand{\setprogramname}[1]{\def\@programname{#1}}
+
 
 % set numbering of sections
 \renewcommand\thesection{\arabic{section}.}
@@ -124,3 +126,29 @@
 	}
 }
 
+\newcommand{\descriptivetitle}{
+	\clearpage
+	\thispagestyle{empty}
+	\centering
+	\bfseries
+	MEF UNIVERSITY \\ \MakeUppercase{\@faculty} \\
+	\vspace{1em}
+	DEPARTMENT OF \MakeUppercase{\@department} \\
+	\vspace{6em}
+	\MakeUppercase{\Large \@projecttitle} \\
+			\vspace{6em}
+	Senior Design Project \@courseno \\
+	\vspace{6em}
+	{
+		\begin{tabular}[t]{c}
+			\@projectauthors
+		\end{tabular}
+	} \\
+	\vspace{6em}
+	Advisor: \@advisor \\
+	\vfill
+	\begin{center}
+		\@projectyear
+	\end{center}
+
+}
