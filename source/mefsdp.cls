@@ -3,7 +3,6 @@
 
 \LoadClass[12pt]{report}
 
-\RequirePackage[right=25mm, left=25mm, bottom=25mm, top=25mm]{geometry}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
 \RequirePackage{titlepic}
@@ -14,6 +13,7 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage{ifthen}
 \RequirePackage{ifnextok}
+\RequirePackage[center,labelfont=bf,labelsep=endash]{caption}
 
 %\setlength{\textwidth}{6.5in}
 %\setlength{\textheight}{8in}
@@ -64,7 +64,7 @@
 	{subsubsection}{3}{0mm} % name, level, indent
 	{-1\baselineskip} % beforeskip
 	{0.5\baselineskip} % afterskip
-	{\bfseries} % style
+	{\bfseries \titlecap} % style
 }
 	
 
