@@ -128,7 +128,7 @@
 
 \newcommand{\descriptivetitle}{
 	\clearpage
-	\thispagestyle{empty}
+	\thispagestyle{empty}{
 	\centering
 	\bfseries
 	MEF UNIVERSITY \\ \MakeUppercase{\@faculty} \\
@@ -150,5 +150,5 @@
 	\begin{center}
 		\@projectyear
 	\end{center}
-
+}
 }
