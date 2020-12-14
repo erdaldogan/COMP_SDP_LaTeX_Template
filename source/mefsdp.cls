@@ -14,6 +14,8 @@
 \RequirePackage[center,labelfont=bf,labelsep=endash]{caption}
 \RequirePackage{natbib}
 \RequirePackage[hidelinks]{hyperref}
+\RequirePackage{tabularx}
+\RequirePackage[ddmmyyyy]{datetime}
 
 % Font Sizes
 % \normalsize	12pt
@@ -23,8 +25,10 @@
 \pagenumbering{arabic}
 
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
-\newcommand{\setauthor}[1]{\def\@projectauthors{#1}}
+\newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
+\newcommand{\setauthorsflat}[1]{\def\@authorsflat{#1}} % be aware of the internal \@author
 \newcommand{\setyear}[1]{\def\@projectyear{#1}}
+\newcommand{\setdate}[1]{\def\@projectdate{#1}} % dd\mm\yyyy
 \newcommand{\setcourseno}[1]{\def\@courseno{#1}}
 \newcommand{\setfaculty}[1]{\def\@faculty{#1}}
 \newcommand{\setdepartment}[1]{\def\@department{#1}}
@@ -67,6 +71,7 @@
 % section style without break
 \newcommand{\@secstylenobr}{\centering\large\bfseries\scshape}
 
+% print the authors in tabular formate for automatic centering and alignment
 \renewcommand\and{
 	\end{tabular}
 	\hskip 1em
@@ -116,7 +121,7 @@
 		\vspace{10em}
 		{
 			\begin{tabular}[t]{c}
-				\@projectauthors
+				\@authors
 			\end{tabular}
 		} \\
 		\vfill
@@ -141,7 +146,7 @@
 	\vspace{6em}
 	{
 		\begin{tabular}[t]{c}
-			\@projectauthors
+			\@authors
 		\end{tabular}
 	} \\
 	\vspace{6em}
@@ -150,5 +155,58 @@
 	\begin{center}
 		\@projectyear
 	\end{center}
+	}
 }
+
+\newcommand{\acceptancepage}{
+	\clearpage
+	\thispagestyle{empty}{
+		\centering
+		\bfseries
+		MEF UNIVERSITY \\ \MakeUppercase{\@faculty} \par
+		\vspace{1em}
+		DEPARTMENT OF \MakeUppercase{\@department} \par
+		\vspace{6em}
+	}
+	\begin{tabularx}{\textwidth}{l X}
+		Project Title &: {\titlecap \@projecttitle} \\
+		Student(s) Name &: \@authorsflat \\
+		Date &: \@projectdate 
+	\end{tabularx}
+	\vspace{5em}
+	
+	I hereby state that the design project prepared by {\titlecap \@authorsflat} has been completed under my supervision. I accept this work as a “Senior Design Project”. 
+	\vspace{1em}
+	\begin{flushright}
+		\@projectdate
+		\par
+		\@advisor
+	\end{flushright}
+	\vfill
+	
+	I hereby state that I have examined this senior design project by {\titlecap \@authorsflat}. This work is acceptable as a “Senior Design Project”.
+	\vspace{1em}
+	\begin{flushright}
+		\@projectdate
+		\par
+		\@departmentchair
+		\par
+		Head of the Department of
+		\par Computer Engineering
+		\par
+	\end{flushright}
 }
+
+\newcommand{\honestypledge}{
+	\clearpage
+	\thispagestyle{empty}{
+	\begin{center}
+		\bfseries
+		\MakeUppercase{Academic Honesty Pledge}
+	\end{center}
+\vspace{3em}
+	In keeping with MEF University Student Code of Conduct, I pledge that this work is my own and that I have not received inappropriate assistance in its preparation. I further declare that all resources are explicitly cited.
+
+	}
+}
+
