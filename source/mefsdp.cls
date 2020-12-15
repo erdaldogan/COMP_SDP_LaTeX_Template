@@ -31,7 +31,7 @@
 % \large		14.4pt
 % \Large		17.28pt
 
-\pagenumbering{roman}
+
 
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
 \newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
@@ -227,7 +227,28 @@
 \newcommand{\listofabbreviations}{
 	\clearpage
 	\thispagestyle{empty}
-
 	\printnoidxglossary[type=\acronymtype,title=\@headerstyle List of Abbreviations, style=long3col]
+}
+
+
+\newcommand{\makestandards}{
+	% it is customary to use roman literals for page numberings before the first section in the template
+	\pagenumbering{roman} 
 	
+	\coverpage
+	\descriptivetitle
+	\acceptancepage
+	\honestypledge
+	\makelists
+	
+	% convert page numbering back to arabic numbers
+	\cleardoublepage
+	\pagenumbering{arabic}
+}
+
+\newcommand{\makelists}{
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\listofabbreviations
 }
