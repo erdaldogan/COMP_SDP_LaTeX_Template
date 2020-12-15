@@ -16,13 +16,22 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{tabularx}
 \RequirePackage[ddmmyyyy]{datetime}
+\RequirePackage[nomain,acronym]{glossaries}
+
+% style for abbreviations
+\setacronymstyle{long-short}
+\makenoidxglossaries
+\setlength{\glsdescwidth}{.8\textwidth}
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+
+
 
 % Font Sizes
 % \normalsize	12pt
 % \large		14.4pt
 % \Large		17.28pt
 
-\pagenumbering{arabic}
+\pagenumbering{roman}
 
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
 \newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
@@ -199,14 +208,26 @@
 
 \newcommand{\honestypledge}{
 	\clearpage
-	\thispagestyle{empty}{
+	\thispagestyle{empty}
 	\begin{center}
 		\bfseries
 		\MakeUppercase{Academic Honesty Pledge}
 	\end{center}
-\vspace{3em}
-	In keeping with MEF University Student Code of Conduct, I pledge that this work is my own and that I have not received inappropriate assistance in its preparation. I further declare that all resources are explicitly cited.
-
-	}
+	\vspace{3em}
+	In keeping with MEF University Student Code of Conduct, I pledge that this work is my own and that I have not received inappropriate assistance in its preparation. I further declare that all resources are explicitly cited. \par\noindent
+	\vspace{6em}
+	\begin{tabularx}{\textwidth}{X X X}
+		NAME & DATE & SIGNATURE\\
+		\hline \\
+		
+	\end{tabularx}
+	
 }
 
+\newcommand{\listofabbreviations}{
+	\clearpage
+	\thispagestyle{empty}
+
+	\printnoidxglossary[type=\acronymtype,title=\@headerstyle List of Abbreviations, style=long3col]
+	
+}
