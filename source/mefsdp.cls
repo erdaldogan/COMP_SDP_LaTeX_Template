@@ -5,8 +5,6 @@
 
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
-\RequirePackage{titlepic}
-\RequirePackage{listings}
 \RequirePackage{indentfirst}
 \RequirePackage{titlecaps}
 \RequirePackage[T1]{fontenc}
@@ -16,14 +14,15 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{tabularx}
 \RequirePackage[ddmmyyyy]{datetime}
-\RequirePackage[nomain,acronym]{glossaries}
+\RequirePackage[nomain,acronym]{glossaries} % must be imported after hyperref
 
 % style for abbreviations
 \setacronymstyle{long-short}
 \makenoidxglossaries
+% width of the description column at list of abbreviations page
 \setlength{\glsdescwidth}{.8\textwidth}
+% abbreviations are shown in bold at list of abbreviations
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
-
 
 
 % Font Sizes
@@ -32,12 +31,12 @@
 % \Large		17.28pt
 
 
-
+% user is expected to define these variables in premable
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
 \newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
-\newcommand{\setauthorsflat}[1]{\def\@authorsflat{#1}} % be aware of the internal \@author
+\newcommand{\setauthorsflat}[1]{\def\@authorsflat{#1}}
 \newcommand{\setyear}[1]{\def\@projectyear{#1}}
-\newcommand{\setdate}[1]{\def\@projectdate{#1}} % dd\mm\yyyy
+\newcommand{\setdate}[1]{\def\@projectdate{#1}} % dd/mm/yyyy
 \newcommand{\setcourseno}[1]{\def\@courseno{#1}}
 \newcommand{\setfaculty}[1]{\def\@faculty{#1}}
 \newcommand{\setdepartment}[1]{\def\@department{#1}}
@@ -54,22 +53,27 @@
 \renewcommand\thesubsubsection{\thesubsection\arabic{subsubsection}.}
 
 % set header style for listings
-\newcommand{\@headerstyle}{\vspace{-3em}\bfseries\centering\large\scshape}
+\newcommand{\@headerstyle}{\vspace{-3em}\@secstylenobr}
 \renewcommand{\contentsname}{\@headerstyle Table of Contents}
 \renewcommand{\bibname}{\@headerstyle References}
 \renewcommand{\listfigurename}{\@headerstyle List of Figures}
 \renewcommand{\listtablename}{\@headerstyle List of Tables}
 
 
-% enumerate subsubsection
+%\let\@tocsecformat\l@section
+%\let\@tocsubsecformat\l@subsection
+%\let\@tocsubsubsecformat\l@subsubsection
+%\renewcommand\l@section {\titlecaps \@tocsecformat}
+%\renewcommand\l@subsection {\titlecaps \@tocsecformat}
+%\renewcommand\l@subsubsection{\titlecaps \@tocsecformat}
+	
+	
+% enable numbering on subsubsection header
 \addtocounter{secnumdepth}{1}
+% include subsection to toc
 \addtocounter{tocdepth}{1}
 
-\newcommand{\createlists}{
-	\tableofcontents
-	\listoftables
-	\listoffigures
-}
+
 
 % words not be capitalized in title case
 \Addlcwords{a, an, by, to, the, of, and, but, for, in, on, is}
@@ -113,11 +117,7 @@
 }
 
 
-\newcommand{\createtitle}{%
-	\centering
-}
-
-\newcommand{\coverpage}{
+\newcommand{\@coverpage}{
 	\clearpage
 	\thispagestyle{empty}{
 	\centering
@@ -140,7 +140,7 @@
 	}
 }
 
-\newcommand{\descriptivetitle}{
+\newcommand{\@descriptivetitle}{
 	\clearpage
 	\thispagestyle{empty}{
 	\centering
@@ -167,7 +167,7 @@
 	}
 }
 
-\newcommand{\acceptancepage}{
+\newcommand{\@acceptancepage}{
 	\clearpage
 	\thispagestyle{empty}{
 		\centering
@@ -206,7 +206,7 @@
 	\end{flushright}
 }
 
-\newcommand{\honestypledge}{
+\newcommand{\@honestypledge}{
 	\clearpage
 	\thispagestyle{empty}
 	\begin{center}
@@ -224,7 +224,7 @@
 	
 }
 
-\newcommand{\listofabbreviations}{
+\newcommand{\@listofabbreviations}{
 	\clearpage
 	\thispagestyle{empty}
 	\printnoidxglossary[type=\acronymtype,title=\@headerstyle List of Abbreviations, style=long3col]
@@ -235,20 +235,41 @@
 	% it is customary to use roman literals for page numberings before the first section in the template
 	\pagenumbering{roman} 
 	
-	\coverpage
-	\descriptivetitle
-	\acceptancepage
-	\honestypledge
-	\makelists
+	\@coverpage
+	\@descriptivetitle
+	\@acceptancepage
+	\@honestypledge
+	\@makelists
 	
 	% convert page numbering back to arabic numbers
 	\cleardoublepage
 	\pagenumbering{arabic}
 }
 
-\newcommand{\makelists}{
+\newcommand{\@makelists}{
 	\tableofcontents
 	\listoffigures
 	\listoftables
-	\listofabbreviations
+	\@listofabbreviations
 }
+
+\renewenvironment{appendix}[1][]{
+	\begin{center}
+		\@secstylebr Appendix #1
+	\end{center}
+	\addcontentsline{toc}{section}{APPENDIX #1}
+	
+	}
+	{}
+
+
+\newenvironment{acknowledgments}{
+	\begin{center}
+		\@secstylebr Acknowledgments
+	\end{center}
+	
+	\addcontentsline{toc}{section}{ACKNOWLEDGMENTS}
+	
+	}
+{}
+

@@ -36,3 +36,6 @@
 \contentsline {subsection}{\numberline {7.2.}Professional and ethical responsibilities of engineers}{10}{subsection.0.7.2}% 
 \contentsline {subsection}{\numberline {7.3.}Contemporary Issues}{10}{subsection.0.7.3}% 
 \contentsline {subsection}{\numberline {7.4.}Team Work}{10}{subsection.0.7.4}% 
+\contentsline {section}{APPENDIX A}{11}{subsection.0.7.4}% 
+\contentsline {section}{APPENDIX B}{12}{subsection.0.7.4}% 
+\contentsline {section}{ACKNOWLEDGMENTS}{13}{subsection.0.7.4}% 
