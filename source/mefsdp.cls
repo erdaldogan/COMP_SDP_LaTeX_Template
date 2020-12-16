@@ -35,17 +35,28 @@
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
 \newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
 \newcommand{\setauthorsflat}[1]{\def\@authorsflat{#1}}
+\newcommand{\setmonth}[1]{\def\@projectmonth{#1}}
 \newcommand{\setyear}[1]{\def\@projectyear{#1}}
 \newcommand{\setdate}[1]{\def\@projectdate{#1}} % dd/mm/yyyy
 \newcommand{\setcourseno}[1]{\def\@courseno{#1}}
-\newcommand{\setfaculty}[1]{\def\@faculty{#1}}
-\newcommand{\setdepartment}[1]{\def\@department{#1}}
+\newcommand{\setfaculty}[1]{\def\@faculty{Faculty of #1}}
+\newcommand{\setdepartment}[1]{\def\@department{Department of #1}}
 \newcommand{\setchair}[1]{\def\@departmentchair{#1}}
-\newcommand{\setadvisor}[2]{\def\@advisor{#1}}
+\newcommand{\setadvisor}[1]{\def\@advisor{#1}}
 \newcommand{\setmemberone}[1]{\def\TAMUCCmemberone{#1}}
 \newcommand{\setmembertwo}[1]{\def\TAMUCCmembertwo{#1}}
 \newcommand{\setpriordegree}[1]{\def\BSearned{#1}}
 
+\newcommand{\keywords}[1]{\def\@keywords{#1}}
+
+\newcommand{\settitleTR}[1]{\def\@projecttitleTR{#1}}
+\newcommand{\setmonthTR}[1]{\def\@projectmonthTR{#1}}
+\newcommand{\setfacultyTR}[1]{\def\@facultyTR{#1 Fakültesi}}
+\newcommand{\setdepartmentTR}[1]{\def\@departmentTR{#1 Bölümü}}
+\newcommand{\setadvisorTR}[1]{\def\@advisorTR{#1}}
+\newcommand{\anahtarkelimeler}[1]{\def\@anahtarkelimeler{#1}}
+
+% create metadata
 \AtBeginDocument{
 \hypersetup{
 	pdfauthor={\@authorsflat},
@@ -156,7 +167,7 @@
 	\bfseries
 	MEF UNIVERSITY \\ \MakeUppercase{\@faculty} \\
 	\vspace{1em}
-	DEPARTMENT OF \MakeUppercase{\@department} \\
+	\MakeUppercase{\@department} \\
 	\vspace{6em}
 	\MakeUppercase{\Large \@projecttitle} \\
 			\vspace{6em}
@@ -183,7 +194,7 @@
 		\bfseries
 		MEF UNIVERSITY \\ \MakeUppercase{\@faculty} \par
 		\vspace{1em}
-		DEPARTMENT OF \MakeUppercase{\@department} \par
+		\MakeUppercase{\@department} \par
 		\vspace{6em}
 	}
 	\begin{tabularx}{\textwidth}{l X}
@@ -248,18 +259,18 @@
 	\@descriptivetitle
 	\@acceptancepage
 	\@honestypledge
-	\@makelists
-	
-	% convert page numbering back to arabic numbers
-	\cleardoublepage
-	\pagenumbering{arabic}
+
 }
 
-\newcommand{\@makelists}{
+\newcommand{\makelists}{
 	\tableofcontents
 	\listoffigures
 	\listoftables
 	\@listofabbreviations
+	
+	% convert page numbering back to arabic numbers
+	\cleardoublepage
+	\pagenumbering{arabic}
 }
 
 \renewenvironment{appendix}[1][]{
@@ -267,7 +278,6 @@
 		\@secstylebr Appendix #1
 	\end{center}
 	\addcontentsline{toc}{section}{APPENDIX #1}
-	
 	}
 	{}
 
@@ -276,9 +286,56 @@
 	\begin{center}
 		\@secstylebr Acknowledgments
 	\end{center}
-	
 	\addcontentsline{toc}{section}{ACKNOWLEDGMENTS}
-	
 	}
 {}
 
+
+\renewenvironment{abstract}{
+	{\centering
+		{\@secstylebr ABSTRACT} \vspace{3em}
+		
+		\MakeUppercase{\@projecttitle} \par \vspace{1em}
+		
+		{
+			\begin{tabular}[t]{c}
+				\@authors
+			\end{tabular}
+		} \par \vspace{1em}
+		
+		MEF UNIVERSITY \par
+		\@faculty \par
+		\@department \par \vspace{1em}
+		Advisor: \@advisor  \par \vspace{1em}
+		\MakeUppercase{\@projectmonth}, \@projectyear \par \vspace{3em}
+	}
+		
+	
+	\addcontentsline{toc}{section}{ABSTRACT}
+}
+{\vfill \textbf{\emph{Keywords:}} \@keywords}
+
+
+\newenvironment{abstractTR}{
+	{\centering
+		{\@secstylebr ÖZET} \vspace{3em}
+		
+		\MakeUppercase{\@projecttitleTR} \par \vspace{1em}
+		
+		{
+			\begin{tabular}[t]{c}
+				\@authors
+			\end{tabular}
+		} \par \vspace{1em}
+		
+		MEF ÜNİVERSİTESİ \par
+		\@facultyTR \par
+		\@departmentTR \par \vspace{1em}
+		Tez Danışmanı: \@advisorTR  \par \vspace{1em}
+		\MakeUppercase{\@projectmonthTR}, \@projectyear \par \vspace{3em}
+	}
+	
+	
+	\addcontentsline{toc}{section}{ÖZET}
+}
+{\vfill \textbf{\emph{Anahtar Kelimeler:}} \@anahtarkelimeler}
