@@ -46,6 +46,15 @@
 \newcommand{\setmembertwo}[1]{\def\TAMUCCmembertwo{#1}}
 \newcommand{\setpriordegree}[1]{\def\BSearned{#1}}
 
+\AtBeginDocument{
+\hypersetup{
+	pdfauthor={\@authorsflat},
+	pdftitle={\titlecap \@projecttitle},
+	pdflang={en},
+	pdfsubject={MEF University Senior Design Project Report}
+	}
+}
+
 
 % set numbering of sections
 \renewcommand\thesection{\arabic{section}.}
