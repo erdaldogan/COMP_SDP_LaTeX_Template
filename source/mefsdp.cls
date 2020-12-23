@@ -15,8 +15,6 @@
 \RequirePackage{tabularx}
 \RequirePackage[ddmmyyyy]{datetime}
 \RequirePackage[nomain,acronym]{glossaries} % must be imported after hyperref
-\RequirePackage{xparse}
-
 
 
 % Font Sizes
@@ -27,8 +25,7 @@
 
 % user is expected to define these variables in premable
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
-%\newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
-\newcommand{\setauthors}[1]{\def\@authors{#1}}
+\newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
 \newcommand{\setmonth}[1]{\def\@projectmonth{#1}}
 \newcommand{\setyear}[1]{\def\@projectyear{#1}}
 \newcommand{\setdate}[1]{\def\@projectdate{#1}} % dd/mm/yyyy
@@ -94,8 +91,6 @@
 %\renewcommand\l@subsection {\titlecaps \@tocsecformat}
 %\renewcommand\l@subsubsection{\titlecaps \@tocsecformat}
 	
-
-
 
 % words not be capitalized in title case
 \Addlcwords{a, an, by, to, the, of, and, but, for, in, on, is}
@@ -228,6 +223,9 @@
 	\end{flushright}
 }
 
+% tand is magical, don't remove!!
+\newcommand{\tand}{&}
+\newcommand{\@authorstlist}{\@for\tmp:=\@authors\do{\tmp \tand \@projectdate \tand \\ \\}}
 
 \newcommand{\@honestypledge}{
 	\clearpage
@@ -242,8 +240,7 @@
 		\begin{tabularx}{\textwidth}{X X r}
 			NAME & DATE & SIGNATURE\\
 			\hline \\
-			Jane Doe & \@projectdate & \\
-			
+			\@authorstlist
 		\end{tabularx}
 	\end{table}
 	
