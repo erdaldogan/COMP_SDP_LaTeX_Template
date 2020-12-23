@@ -15,14 +15,8 @@
 \RequirePackage{tabularx}
 \RequirePackage[ddmmyyyy]{datetime}
 \RequirePackage[nomain,acronym]{glossaries} % must be imported after hyperref
+\RequirePackage{xparse}
 
-% style for abbreviations
-\setacronymstyle{long-short}
-\makenoidxglossaries
-% width of the description column at list of abbreviations page
-\setlength{\glsdescwidth}{.8\textwidth}
-% abbreviations are shown in bold at list of abbreviations
-\renewcommand{\glsnamefont}[1]{\textbf{#1}}
 
 
 % Font Sizes
@@ -33,8 +27,8 @@
 
 % user is expected to define these variables in premable
 \newcommand{\settitle}[1]{\def\@projecttitle{#1}}
-\newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
-\newcommand{\setauthorsflat}[1]{\def\@authorsflat{#1}}
+%\newcommand{\setauthors}[1]{\def\@authors{#1}} % be aware of the internal \@author
+\newcommand{\setauthors}[1]{\def\@authors{#1}}
 \newcommand{\setmonth}[1]{\def\@projectmonth{#1}}
 \newcommand{\setyear}[1]{\def\@projectyear{#1}}
 \newcommand{\setdate}[1]{\def\@projectdate{#1}} % dd/mm/yyyy
@@ -43,10 +37,6 @@
 \newcommand{\setdepartment}[1]{\def\@department{Department of #1}}
 \newcommand{\setchair}[1]{\def\@departmentchair{#1}}
 \newcommand{\setadvisor}[1]{\def\@advisor{#1}}
-\newcommand{\setmemberone}[1]{\def\TAMUCCmemberone{#1}}
-\newcommand{\setmembertwo}[1]{\def\TAMUCCmembertwo{#1}}
-\newcommand{\setpriordegree}[1]{\def\BSearned{#1}}
-
 \newcommand{\keywords}[1]{\def\@keywords{#1}}
 
 \newcommand{\settitleTR}[1]{\def\@projecttitleTR{#1}}
@@ -56,29 +46,46 @@
 \newcommand{\setadvisorTR}[1]{\def\@advisorTR{#1}}
 \newcommand{\anahtarkelimeler}[1]{\def\@anahtarkelimeler{#1}}
 
-% create metadata
+% create metadata for output pdf 
 \AtBeginDocument{
 \hypersetup{
-	pdfauthor={\@authorsflat},
+	pdfauthor={\@authors},
 	pdftitle={\titlecap \@projecttitle},
-	pdflang={en},
 	pdfsubject={MEF University Senior Design Project Report}
 	}
 }
 
-
-% set numbering of sections
+% set numbering of section headers
 \renewcommand\thesection{\arabic{section}.}
 \renewcommand\thesubsection{\thesection\arabic{subsection}.}
 \renewcommand\thesubsubsection{\thesubsection\arabic{subsubsection}.}
 
-% set header style for listings
+% enable numbering on subsubsection headers
+\addtocounter{secnumdepth}{1}
+% include subsections in toc
+\addtocounter{tocdepth}{1}
+
+% section header style w/ page break
+\newcommand{\@secstylebr}{\newpage\centering\large\bfseries\scshape}
+
+% section header style wo/ page break
+\newcommand{\@secstylenobr}{\centering\large\bfseries\scshape}
+
+% set header text and style for toc, references, lof and lot
 \newcommand{\@headerstyle}{\vspace{-3em}\@secstylenobr}
 \renewcommand{\contentsname}{\@headerstyle Table of Contents}
 \renewcommand{\bibname}{\@headerstyle References}
 \renewcommand{\listfigurename}{\@headerstyle List of Figures}
 \renewcommand{\listtablename}{\@headerstyle List of Tables}
 
+
+% style for in-text abbreviations
+\setacronymstyle{long-short}
+\makenoidxglossaries
+% width of the description column at list of abbreviations page
+\setlength{\glsdescwidth}{.8\textwidth}
+% abbreviations are shown in bold at list of abbreviations page
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
 
 %\let\@tocsecformat\l@section
 %\let\@tocsubsecformat\l@subsection
@@ -87,30 +94,12 @@
 %\renewcommand\l@subsection {\titlecaps \@tocsecformat}
 %\renewcommand\l@subsubsection{\titlecaps \@tocsecformat}
 	
-	
-% enable numbering on subsubsection header
-\addtocounter{secnumdepth}{1}
-% include subsection to toc
-\addtocounter{tocdepth}{1}
 
 
 
 % words not be capitalized in title case
 \Addlcwords{a, an, by, to, the, of, and, but, for, in, on, is}
 
-% section style break
-\newcommand{\@secstylebr}{\newpage\centering\large\bfseries\scshape}
-
-% section style without break
-\newcommand{\@secstylenobr}{\centering\large\bfseries\scshape}
-
-% print the authors in tabular formate for automatic centering and alignment
-\renewcommand\and{
-	\end{tabular}
-	\hskip 1em
-	\@plus.17fil
-	\begin{tabular}[t]{c}
-}
 
 \renewcommand\section[1][]{
 	\ifthenelse{\equal{#1}{nobreak}}
@@ -137,6 +126,19 @@
 }
 
 
+% print the authors in tabular format for automatic centering and alignment
+% this function is defined to be used as seperator in a tabular environment where the authors are printed
+% in order to sustain equally spaced and centered names at the cover pages
+\newcommand\@SeperateAuthors{
+\end{tabular}
+\hskip 1em
+\@plus.17fil
+\begin{tabular}[t]{c}
+}
+
+% iterate over comma seperated list of authors and apply the SeperateAuthors function
+\newcommand{\@authorstab}{\@for\tmp:=\@authors\do{\tmp\@SeperateAuthors}}
+
 \newcommand{\@coverpage}{
 	\clearpage
 	\thispagestyle{empty}{
@@ -147,10 +149,10 @@
 		\MakeUppercase{\Large \@projecttitle} \\
 		\vspace{6em}
 		Senior Design Project \@courseno \\
-		\vspace{10em}
+		\vspace{8em}
 		{
 			\begin{tabular}[t]{c}
-				\@authors
+				\@authorstab
 			\end{tabular}
 		} \\
 		\vfill
@@ -175,7 +177,7 @@
 	\vspace{6em}
 	{
 		\begin{tabular}[t]{c}
-			\@authors
+			\@authorstab
 		\end{tabular}
 	} \\
 	\vspace{6em}
@@ -197,14 +199,14 @@
 		\MakeUppercase{\@department} \par
 		\vspace{6em}
 	}
-	\begin{tabularx}{\textwidth}{l X}
+	\begin{tabularx}{0.98\textwidth}{l X}
 		Project Title &: {\titlecap \@projecttitle} \\
-		Student(s) Name &: \@authorsflat \\
+		Student(s) Name &: \@authors \\
 		Date &: \@projectdate 
 	\end{tabularx}
 	\vspace{5em}
 	
-	I hereby state that the design project prepared by {\titlecap \@authorsflat} has been completed under my supervision. I accept this work as a “Senior Design Project”. 
+	I hereby state that the design project prepared by {\titlecap \@authors} has been completed under my supervision. I accept this work as a “Senior Design Project”.
 	\vspace{1em}
 	\begin{flushright}
 		\@projectdate
@@ -213,7 +215,7 @@
 	\end{flushright}
 	\vfill
 	
-	I hereby state that I have examined this senior design project by {\titlecap \@authorsflat}. This work is acceptable as a “Senior Design Project”.
+	I hereby state that I have examined this senior design project by {\titlecap \@authors}. This work is acceptable as a “Senior Design Project”.
 	\vspace{1em}
 	\begin{flushright}
 		\@projectdate
@@ -226,6 +228,7 @@
 	\end{flushright}
 }
 
+
 \newcommand{\@honestypledge}{
 	\clearpage
 	\thispagestyle{empty}
@@ -234,20 +237,22 @@
 		\MakeUppercase{Academic Honesty Pledge}
 	\end{center}
 	\vspace{3em}
-	In keeping with MEF University Student Code of Conduct, I pledge that this work is my own and that I have not received inappropriate assistance in its preparation. I further declare that all resources are explicitly cited. \par\noindent
-	\vspace{6em}
-	\begin{tabularx}{\textwidth}{X X X}
-		NAME & DATE & SIGNATURE\\
-		\hline \\
-		
-	\end{tabularx}
+	In keeping with MEF University Student Code of Conduct, I pledge that this work is my own and that I have not received inappropriate assistance in its preparation. I further declare that all resources are explicitly cited. \newline \par 
+	\begin{table}[h]
+		\begin{tabularx}{\textwidth}{X X r}
+			NAME & DATE & SIGNATURE\\
+			\hline \\
+			Jane Doe & \@projectdate & \\
+			
+		\end{tabularx}
+	\end{table}
 	
 }
 
 \newcommand{\@listofabbreviations}{
 	\clearpage
 	\thispagestyle{empty}
-	\printnoidxglossary[type=\acronymtype,title=\@headerstyle List of Abbreviations, style=long3col]
+	\printnoidxglossary[type=\acronymtype,title=\@headerstyle List of Abbreviations, style=long3col] % causing overfull hbox
 }
 
 
@@ -288,7 +293,7 @@
 	\end{center}
 	\addcontentsline{toc}{section}{ACKNOWLEDGMENTS}
 	}
-{}
+	{}
 
 
 \renewenvironment{abstract}{
@@ -299,7 +304,7 @@
 		
 		{
 			\begin{tabular}[t]{c}
-				\@authors
+				\@authorstab
 			\end{tabular}
 		} \par \vspace{1em}
 		
@@ -309,8 +314,6 @@
 		Advisor: \@advisor  \par \vspace{1em}
 		\MakeUppercase{\@projectmonth}, \@projectyear \par \vspace{3em}
 	}
-		
-	
 	\addcontentsline{toc}{section}{ABSTRACT}
 }
 {\vfill \textbf{\emph{Keywords:}} \@keywords}
@@ -324,7 +327,7 @@
 		
 		{
 			\begin{tabular}[t]{c}
-				\@authors
+				\@authorstab
 			\end{tabular}
 		} \par \vspace{1em}
 		
@@ -334,8 +337,6 @@
 		Tez Danışmanı: \@advisorTR  \par \vspace{1em}
 		\MakeUppercase{\@projectmonthTR}, \@projectyear \par \vspace{3em}
 	}
-	
-	
 	\addcontentsline{toc}{section}{ÖZET}
 }
 {\vfill \textbf{\emph{Anahtar Kelimeler:}} \@anahtarkelimeler}
