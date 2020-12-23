@@ -303,7 +303,7 @@
 			\begin{tabular}[t]{c}
 				\@authorstab
 			\end{tabular}
-		} \par \vspace{1em}
+		} \\ \vspace{1em}
 		
 		MEF UNIVERSITY \par
 		\@faculty \par
@@ -326,7 +326,7 @@
 			\begin{tabular}[t]{c}
 				\@authorstab
 			\end{tabular}
-		} \par \vspace{1em}
+		} \\ \vspace{1em}
 		
 		MEF ÜNİVERSİTESİ \par
 		\@facultyTR \par
