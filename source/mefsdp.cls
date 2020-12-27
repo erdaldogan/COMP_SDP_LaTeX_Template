@@ -141,10 +141,10 @@
 	\bfseries
 		\includegraphics[width=0.3\textwidth]{../figures/mef_logo.png}\\
 		\vspace{8em}
-		\MakeUppercase{\Large \@projecttitle} \\
+		{\Large \MakeUppercase{\@projecttitle} \par}
 		\vspace{6em}
 		Senior Design Project \@courseno \\
-		\vspace{8em}
+		\vspace{6em}
 		{
 			\begin{tabular}[t]{c}
 				\@authorstab
@@ -166,16 +166,16 @@
 	\vspace{1em}
 	\MakeUppercase{\@department} \\
 	\vspace{6em}
-	\MakeUppercase{\Large \@projecttitle} \\
-			\vspace{6em}
+	{\Large \MakeUppercase{\@projecttitle} \par}
+			\vspace{4em}
 	Senior Design Project \@courseno \\
-	\vspace{6em}
+	\vspace{4em}
 	{
 		\begin{tabular}[t]{c}
 			\@authorstab
 		\end{tabular}
 	} \\
-	\vspace{6em}
+	\vspace{4em}
 	Advisor: \@advisor \\
 	\vfill
 	\begin{center}
