@@ -44,6 +44,9 @@
 \newcommand{\setadvisorTR}[1]{\def\@advisorTR{#1}}
 \newcommand{\anahtarkelimeler}[1]{\def\@anahtarkelimeler{#1}}
 
+\newcommand{\setfigurepath}[1]{\def\@figpath{#1}}
+\graphicspath{\@figpath}
+
 % create metadata for output pdf 
 \AtBeginDocument{
 \hypersetup{
@@ -133,7 +136,7 @@
 	\thispagestyle{empty}{
 	\centering
 	\bfseries
-		\includegraphics[width=0.3\textwidth]{../figures/mef_logo.png}\\
+		\includegraphics[width=0.3\textwidth]{\@figpath mef_logo.png}\\
 		\vspace{8em}
 		{\Large \MakeUppercase{\@projecttitle} \par}
 		\vspace{6em}
