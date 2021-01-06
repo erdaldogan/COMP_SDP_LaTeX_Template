@@ -14,6 +14,7 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{tabularx}
 \RequirePackage[ddmmyyyy]{datetime}
+\RequirePackage{xstring}
 \RequirePackage[nomain,acronym]{glossaries} % must be imported after hyperref
 
 
@@ -121,18 +122,11 @@
 }
 
 
-% print the authors in tabular format for automatic centering and alignment
-% this function is defined to be used as seperator in a tabular environment where the authors are printed
-% in order to sustain equally spaced and centered names at the cover pages
-\newcommand\@SeperateAuthors{
-\end{tabular}
-\hskip 1em
-\@plus.17fil
-\begin{tabular}[t]{c}
-}
-
-% iterate over comma seperated list of authors and apply the SeperateAuthors function
-\newcommand{\@authorstab}{\@for\tmp:=\@authors\do{\tmp\@SeperateAuthors}}
+% user sets the authors as comma seperated list.
+% in order to align and centeralize the authors, we utilize the built-in \and command from the report class
+% simply, we substite 'comma followed by a space' with \and 
+\expandarg % necessary for accessing the contents of \@authors 
+\newcommand{\@authorstab}{\StrSubstitute[0]{\@authors}{, }{\and}}
 
 \newcommand{\@coverpage}{
 	\clearpage
@@ -149,7 +143,7 @@
 			\begin{tabular}[t]{c}
 				\@authorstab
 			\end{tabular}
-		} \\
+		} 
 		\vfill
 		\begin{center}
 			\@projectyear
