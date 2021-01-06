@@ -5,6 +5,7 @@ This template imitates the ubiquitous MS Word version. Main motive was not to de
 
 This template provides rough structure while defining  the environment styling. Therefore, you can solely focus on the content instead of hassling with the trivial stuff.
 
+_BEWARE: This template has not been rigorously tested. Some edge cases may or may not cause unexpected issues or formatting errors. Also, always have a backup of your work! preferably version control._
 
 ## Can I use it?
 This template had been developed considering the majority of users would be novices about LaTex. Hence, page structure, formatting and styling is being handeled at the background while the user only provides the content. 
@@ -47,7 +48,7 @@ After these, you must define path variable for the figures (or any other name) d
 ### Begin typing your document
 As you know, you write your report in the `document` environment. After declaring the variables, you may begin your `document`. 
 
-_You must execute the enumerated steps in the exact order! Examples can be seen from the [source file](source/document.tex)._
+_You must execute the enumerated steps in the exact order! Examples can be seen from the [source file](source/report.tex)._
 
 1- **After the  `\begin{document}` first line must be `\makestandards`**
 It makes all of the essential pages such as cover page, acceptence, honesty pledge etc. 
@@ -97,7 +98,7 @@ One more environment is the `acknowledgments`. There is not any arguments specif
 \end{acknowledgments}
 ```
 
-Finally, `bibliography`. There is not any adjustments on the bibliography. You choose your style and pass the relative file of the `.bib` file as in;
+Finally, `bibliography`. There is not any adjustments on the bibliography. You choose your style and pass the relative path of the `.bib` file as in;
 ```
 	\bibliographystyle{apalike}
 	\bibliography{../bibliography/references}
