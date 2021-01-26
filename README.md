@@ -68,7 +68,7 @@ It’s up to you after this point. `section`, `subsection` and `subsubsection` e
 \begin[nobreak]{section}
 	FILL HERE
 \end{section}
-```  
+```
 
 * Adding abbreviations to your document
 	We utilize the _glossaries_ package for this task. As the package suggests, you must define the abbreviations and their full text in the preamble before using them. The syntax is as follows:
@@ -100,7 +100,7 @@ One more environment is the `acknowledgments`. There is not any arguments specif
 
 Finally, `bibliography`. There is not any adjustments on the bibliography. You choose your style and pass the relative path of the `.bib` file as in;
 ```
-	\bibliographystyle{apalike}
+	\bibliographystyle{IEEEtranN}
 	\bibliography{../bibliography/references}
 ```
 
